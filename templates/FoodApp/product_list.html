@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">FoodApp</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'list' %}">HOME</a></li>
+        <li><a href="{% url 'test' %}">test</a></li>
+        <li><a href="{% url 'orderhis' %}">Order History</a></li>
+          {%if request.user.is_authenticated is True %}
+        <li><a href="{% url 'cart' %}">Cart({{count}})</a></li>
+        {%endif%}
+        {%if request.user.is_authenticated is False %}
+        <li><a href="{% url 'cart' %}">Cart(0)</a></li>
+  {%endif%}
+      </ul>
+      <ul class='nav navbar-nav navbar-right'>
+        {%if request.user.is_authenticated is True %}
+        <li><a href="">WELCOME {{request.user}}</li>
+          <li><a href="{% url 'logout' %}">logout</a></li>
+          {%endif%}
+
+          {%if request.user.is_authenticated is False %}
+          <li><a href="{% url 'signup' %}">Signup</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {%endif%}
+        </ul>
+      </div>
+    </nav>
+
+{% block parentblock %}
+
+{%endblock%}
+<div class="container" align='center'>
+  <h1>{{msg}}</h1>
+</div>
+
+<div class="container" align='center'>
+  <div class="row">
+
+    {% for prod in product_list %}
+        <div class="card mb-3 box-shadow" >
+          <div class="col-md-3" >
+            <a href="details/{{prod.id}}">
+              <img class="card-img-top" height="150" src="{{prod.pic.url}}" alt="Card image cap" /></a>
+              <div class="card-body">
+                <p class="card-text">{{prod.pname}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <form method='post' action='addcart' enctype="multipart/form-data">
+                      Quantity <br><input type='number' name='quantity'/>
+                      <input type='hidden' name='pid' value='{{prod.id}}'/>
+                      <input type="hidden" name="name" value="{{prod.pname}}"/>
+                      <input type="hidden" name="price" value="{{prod.price}}"/>
+                      <input type="hidden" name="image" value="{{prod.pic.url}}"/>{%csrf_token%}
+                      <input type="submit" class="btn btn btn-outline-secondary btn-sm" value='Add to Cart'/>
+                    </form>
+                  </div>
+                <h5 class="text-muted"><i class="fa fa-rupee">{{prod.price}}</i></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+      </div>
+
+
+</body>
+
+</html>

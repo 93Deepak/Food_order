@@ -1,0 +1,18 @@
+{% extends 'FoodApp/product_list.html' %}
+{% block parentblock %}
+<body>
+
+  <div class="container" align="center">
+    <a href= "{% url 'home' %}">HOME</a><br>
+    <a href="/update/{{product.id}}">UPDATE</a> |
+    <a href="/delete/{{product.id}}">DELETE</a>
+
+    <h2>Product Name = {{product.pname}}</h2>
+    <h2>Product Price = {{product.price}}</h2>
+    <h2>Product Category = {{product.category}}</h2>
+    <h2>Product Description = {{product.description}}</h2>
+    <h2>product image = </h2><img src="{{product.pic.url}}" alt="" />
+    </div>
+
+</body>
+{%endblock%}

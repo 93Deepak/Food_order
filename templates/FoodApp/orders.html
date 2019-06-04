@@ -1,0 +1,39 @@
+{% extends 'FoodApp/product_list.html' %}
+
+{%block parentblock%}
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>IMAGE</th>
+      <th>NAME</th>
+      <th>QUANTITY</th>
+      <th>UNIT PRICE</th>
+      <th>TOTAL PRICE</th>
+      <th>USER</th>
+      <th>ORDER DATE</th>
+      <th>STATUS</th>
+      <th>DELETE</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for prod in order %}
+    <tr>
+      <td><a href="details/{{prod.id}}"><img src="{{prod.pic}}"height="40px" width="40px"/></a></td>
+      <td>{{prod.name}}</td>
+      <td>{{prod.quantity}}</td>
+      <td>{{prod.price}}</td>
+      <td>{{prod.total}}</td>
+      <td>{{prod.user}}</td>
+      <td>{{prod.date}}</td>
+      <td>{{prod.status}}</td>
+
+
+      <td><a href="del/{{prod.id}}">DELETE</a></td>
+    </tr>
+    {%endfor%}
+  </tbody>
+  </table>
+
+  </div>
+  {%endblock%}

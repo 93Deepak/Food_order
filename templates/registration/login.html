@@ -1,0 +1,14 @@
+{% extends 'FoodApp/product_list.html' %}
+
+{% block parentblock %}
+
+<div class="container" align="center">
+  <form method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+
+    <input type="submit" value="save">
+  </form>
+
+</div>
+{%endblock%}

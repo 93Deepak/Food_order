@@ -24,11 +24,11 @@ def index(request):
     return render(request,'FoodApp/index.html')
 
 def signup(request):
-    if request.method=='GET':
-        form=SignupForm()
-        return render(request,'FoodApp/signup.html',{'form':form})
-    if request.method=='POST':
-        form=SignupForm(request.POST)
+    if request.method == 'GET':
+        form = SignupForm()
+        return render(request, 'FoodApp/signup.html', {'form': form})
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
         if form.is_valid():
             user=form.save()
             user.set_password(user.password)

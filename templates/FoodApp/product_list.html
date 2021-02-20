@@ -8,18 +8,20 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">FoodApp</a>
+        <a class="navbar-brand" href="#">PARIDHI</a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'list' %}">HOME</a></li>
         <li><a href="{% url 'test' %}">test</a></li>
         <li><a href="{% url 'orderhis' %}">Order History</a></li>
-          {%if request.user.is_authenticated is True %}
-        <li><a href="{% url 'cart' %}">Cart({{count}})</a></li>
-        {%endif%}
+          {% comment %} {%if request.user.is_authenticated is True %} {% endcomment %}
+          {% url 'cart' as crt %}
+        <li><a href="{{crt}}">Cart({{count.name__count}})</a></li>
+        {% comment %} {%endif%}
         {%if request.user.is_authenticated is False %}
-        <li><a href="{% url 'cart' %}">Cart(0)</a></li>
-  {%endif%}
+        {% url 'cart' as crt %}
+        <li><a href="{{crt}}">Cart(0)</a></li>
+  {%endif%} {% endcomment %}
       </ul>
       <ul class='nav navbar-nav navbar-right'>
         {%if request.user.is_authenticated is True %}
@@ -27,7 +29,9 @@
           <li><a href="{% url 'logout' %}">logout</a></li>
           {%endif%}
 
-          {%if request.user.is_authenticated is False %}
+         
+
+          {%if request.user.is_authenticated is False %}  {% csrf_token%}
           <li><a href="{% url 'signup' %}">Signup</a></li>
           <li><a href="{% url 'login' %}">Login</a></li>
           {%endif%}

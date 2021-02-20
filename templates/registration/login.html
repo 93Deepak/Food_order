@@ -3,11 +3,12 @@
 {% block parentblock %}
 
 <div class="container" align="center">
-  <form method="post">
-    {{form.as_p}}
-    {% csrf_token %}
-
-    <input type="submit" value="save">
+  <form method="post" novalidate> {% csrf_token %}
+  {% for fm in form %}
+    {{fm.label_tag}} {{fm}} {{fm.errors}}
+   
+{% endfor %}
+    <input type="submit" value="Submit">
   </form>
 
 </div>

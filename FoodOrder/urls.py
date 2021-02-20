@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from FoodApp import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('sign/',views.signup,name='signup'),
     path('',views.product_list.as_view(),name='list'),
     path('detail/<pk>',views.product_detail.as_view(),name='detail'),

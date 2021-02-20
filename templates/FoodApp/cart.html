@@ -1,53 +1,78 @@
-{% extends 'FoodApp/product_list.html' %}
-
-{%block parentblock%}
+{% extends 'FoodApp/product_list.html' %} {%block parentblock%}
 <div class="container">
-  <div class="container-fluid" align='center'>
+  <div class="container-fluid" align="center">
     <h2>{{del}}</h2>
     <h3>{{add}}</h3>
   </div>
 
   <table class="table table-hover">
     <thead>
-    <tr>
-      <th>IMAGE</th>
-      <th>NAME</th>
-      <th>QUANTITY</th>
-      <th>UNIT PRICE</th>
-      <th>TOTAL PRICE</th>
-      <th>USER</th>
-      <th>DELETE</th>
-    </tr>
+      <tr>
+        <th>IMAGE</th>
+        <th>NAME</th>
+        <th>QUANTITY</th>
+        <th>UNIT PRICE</th>
+        <th>TOTAL PRICE</th>
+        <th>USER</th>
+        <th>DELETE</th>
+      </tr>
     </thead>
     <tbody>
-    {% for prod in cart %}
-    <tr>
-      <td><a href="details/{{prod.id}}"><img src="{{prod.pic}}"height="40px" width="40px"/></a></td>
-      <td>{{prod.name}}</td>
-      <td><div><form  action="update" method="post">
-        <input type="number" name="quantity" value="{{prod.quantity}}">
-        <input type="hidden" name="price" value="{{prod.price}}">
-        <input type="hidden" name="pid" value="{{prod.pid}}">
-        <input type="submit" class="btn btn btn-outline-secondary btn-sm" value='update'/>{% csrf_token %}
-      </form></div></td>
-      <td>{{prod.price}}</td>
-      <td>{{prod.total}}</td>
-      <td>{{prod.user}}</td>
-      <td><a href="delete/{{prod.id}}">DELETE</a></td>
-    </tr>
-    {%endfor%}
-  </tbody>
+      {% for prod in cart %}
+      <tr>
+        <td>
+          <a href="details/{{prod.id}}"
+            ><img src="{{prod.pic}}" height="40px" width="40px"
+          /></a>
+        </td>
+        <td>{{prod.name}}</td>
+        <td>
+          <div>
+            <form action="update" method="post">
+              <input type="number" name="quantity" value="{{prod.quantity}}" />
+              <input type="hidden" name="price" value="{{prod.price}}" />
+              <input type="hidden" name="pid" value="{{prod.pid}}" />
+              <input
+                type="submit"
+                class="btn btn btn-outline-secondary btn-sm"
+                value="update"
+              />{% csrf_token %}
+            </form>
+          </div>
+        </td>
+        <td>{{prod.price}}</td>
+        <td>{{prod.total}}</td>
+        <td>{{prod.user}}</td>
+        <td><a href="delete/{{prod.id}}">DELETE</a></td>
+      </tr>
+      {%endfor%}
+    </tbody>
   </table>
   <table>
+    {% comment %}
     <tr>
+      {% for cr in cart %}
       <th>TOTAL</th>
-      <th>{{total}}</th>
+      <th>{{cr.master_total}}</th>
+      {%endfor%} {% endcomment %}
+    </tr>
+
+    <tr>
+      <th>Total</th>
+      {% for cart in c_total %}
+      <td>{{cart.master_total}}</td>
+      {% endfor %}
     </tr>
   </table>
 </div>
 <div class="btn">
-  <a href="{% url 'orders' %}" type="submit" class="btn btn-outline-secondary btn-md" value='Check-out' align='right'>CHECKOUT
-    </a>
+  <a
+    href="{% url 'orders' %}"
+    type="submit"
+    class="btn btn-outline-secondary btn-md"
+    value="Check-out"
+    >CHECKOUT
+  </a>
 </div>
 
 {%endblock%}
